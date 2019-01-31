@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ include('layouts/header.twig') }}
+<body>
+{{ include('layouts/nav.twig') }}
+
+<div class="container">
+    <table class="table table-striped">
+        <caption class="caption"><h4>集群列表</h4></caption>
+        <thead>
+        <tr>
+            <th class="col-md-4">集群名称</th>
+            <th class="col-md-8">集群地址</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cluster in clusters %}
+            <tr>
+                <td><a href="/clusters/{{ cluster.name }}/nodes">{{ cluster.name }}</a></td>
+                <td>{{ cluster.config }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+<!-- /container -->
+
+{{ include('layouts/script.twig') }}
+
+</body>
+</html>
