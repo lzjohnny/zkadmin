@@ -24,7 +24,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'error/index',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -57,14 +57,13 @@ $config = [
                 ],
             ],
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                //'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

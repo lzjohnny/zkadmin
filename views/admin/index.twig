@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ include('layouts/header.twig') }}
+<body>
+{{ include('layouts/nav.twig') }}
+
+<div class="container">
+    <table class="table table-striped">
+        <caption class="caption"><h4>Zookeeper集群管理</h4></caption>
+        <thead>
+        <tr>
+            <th class="col-md-2">集群名称</th>
+            <th class="col-md-8">集群地址</th>
+            <th class="col-md-2">管理</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cluster in clusters %}
+            <tr>
+                <td><a href="/clusters/{{ cluster.name }}/nodes">{{ cluster.name }}</a></td>
+                <td>{{ cluster.config }}</td>
+                <td>
+                    <button class="btn btn-primary btn-xs"
+                            onclick="showUpdateModal('{{ cluster.name }}'); return false;">
+                        编辑
+                    </button>
+                    <button class="btn btn-danger btn-xs"
+                            onclick="showDeleteModal('{{ cluster.name }}'); return false;">
+                        删除
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <button class="btn btn-success btn-xs" href="#" onclick="showCreateModal(); return false;">添加集群</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- /container -->
+<!-- 模态框（Modal） -->
+{{ include('admin/create-modal.twig') }}
+{{ include('admin/update-modal.twig') }}
+{{ include('admin/delete-modal.twig') }}
+
+{{ include('layouts/script.twig') }}
+<script>
+    function onButtonClick(form, action, method) {
+        form.action = action;
+        form.method = method;
+
+        form.submit();
+    }
+
+    function showCreateModal() {
+        $('#createModal').modal({
+            keyboard: true
+        })
+    }
+
+    function showUpdateModal(clusterName) {
+        $('#update-name').attr('value', clusterName);
+        $('#updateModal').modal({
+            keyboard: true
+        })
+    }
+
+    function showDeleteModal(clusterName) {
+        $('#delete-name').attr('value', clusterName);
+        $('#deleteModal').modal({
+            keyboard: true
+        })
+    }
+</script>
+
+</body>
+</html>

@@ -13,11 +13,6 @@ use yii\db\ActiveRecord;
  */
 class Cluster extends ActiveRecord
 {
-    public $id;
-    public $name;
-    public $config;
-    public $time;
-
     public static function tableName()
     {
         return parent::tableName();
@@ -25,24 +20,30 @@ class Cluster extends ActiveRecord
 
     public function createCluster($name, $config)
     {
-        if (empty($name) || empty($config)) {
-            throw new ZKAdminException();
-        }
+        $this->name = $name;
+        $this->config = $config;
+        $this->time = date('Y-m-d H:i:s');
+        return $this->save();
+    }
 
-        $cluster = new Cluster();
+    public function updateCluster($name, $config)
+    {
+        $cluster = Cluster::findOne(['name' => $name]);
         $cluster->name = $name;
         $cluster->config = $config;
-        $cluster->time = date('Y-m-d H:i:s');
-        $cluster->save();
+        return $cluster->save();
     }
 
-    public function updateCluster()
+    public function deleteCluster($name)
     {
-
+        $cluster = Cluster::findOne(['name' => $name]);
+        return $cluster->delete();
     }
 
-    public function deleteCluster()
+    public function getClusterList($page, $pageSize = 10)
     {
-
+        $offset = ($page - 1) * $pageSize;
+        $clusters = Cluster::find()->offset($offset)->limit($pageSize)->all();
+        return $clusters;
     }
 }

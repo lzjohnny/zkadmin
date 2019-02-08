@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `db_shepher`;
-USE `db_shepher`;
+CREATE DATABASE IF NOT EXISTS `db_zkadmin`;
+USE `db_zkadmin`;
 
 CREATE TABLE IF NOT EXISTS `tb_cluster` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
