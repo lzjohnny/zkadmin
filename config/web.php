@@ -61,6 +61,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'cluster/<name:\w+>' => 'cluster/select',
                 //'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
             ],
         ],

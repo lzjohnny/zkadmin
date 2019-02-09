@@ -16,7 +16,7 @@
         <tbody>
         {% for cluster in clusters %}
             <tr>
-                <td><a href="/clusters/{{ cluster.name }}/nodes">{{ cluster.name }}</a></td>
+                <td><a href="/cluster/{{ cluster.name }}">{{ cluster.name }}</a></td>
                 <td>{{ cluster.config }}</td>
             </tr>
         {% endfor %}

@@ -1,0 +1,38 @@
+<div class="col-md-3">
+    {% if isOnebox %}
+        <form id="search" action="?" method="GET">
+            <div class="input-group placeholder" id="pathGroup">
+                <input type="text" class="form-control input-sm" placeholder="1.0.0.1,1.0.0.2" name="show-ip"
+                       id="show-ip" value="${showIp!}"
+                       onkeydown="onSearch(event)">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-success btn-sm">Show ip</button>
+            </span>
+            </div>
+        </form>
+    {% endif %}
+    <ol class="breadcrumb">
+        <li><a href="/clusters/{{ cluster }}">{{ cluster }}</a></li>
+        {% set pathUrl = "" %}
+        {% for p in pathArr %}
+            {% if p != "" %}
+                {% set pathUrl = "#{pathUrl}/#{p}" %}
+                <li><a href="/clusters/{{ cluster }}?path={{ pathUrl }}">{{ p }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+
+    <ul class="list-group">
+        {% for child in children %}
+            {% if path == "/" %}
+                <li class="list-group-item">
+                    <a href="/clusters/{{ cluster }}?path=/{{ child }}">{{ child }}</a>
+                </li>
+            {% else %}
+                <li class="list-group-item">
+                    <a href="/clusters/{{ cluster }}?path={{ path }}/{{ child }}">{{ child }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
