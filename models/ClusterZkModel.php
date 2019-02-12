@@ -10,7 +10,7 @@ use Zookeeper;
  * Date: 2019/2/12
  * Time: 11:01
  */
-class NodeZkModel extends BaseZkModel
+class ClusterZkModel extends BaseZkModel
 {
     /**
      * @var Zookeeper

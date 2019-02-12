@@ -2,7 +2,7 @@
 
 namespace app\business;
 
-use app\models\NodeZkModel;
+use app\models\ClusterZkModel;
 
 /**
  * Created by PhpStorm.
@@ -14,7 +14,7 @@ class ClusterZkBiz extends BaseBiz
 {
     public function getChildren($address, $path)
     {
-        $node = new NodeZkModel($address);
+        $node = new ClusterZkModel($address);
         $children = $node->getChildren($path);
         return $children;
     }

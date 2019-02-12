@@ -13,25 +13,25 @@ use app\business\ClusterZkBiz;
  */
 class ClusterZkService extends BaseService
 {
-    private $clusterBiz;
-    private $nodeBiz;
+    private $clusterDbBiz;
+    private $clusterZkBiz;
 
     public function __construct()
     {
-        $this->clusterBiz = new ClusterDbBiz();
-        $this->nodeBiz = new ClusterZkBiz();
+        $this->clusterDbBiz = new ClusterDbBiz();
+        $this->clusterZkBiz = new ClusterZkBiz();
     }
 
     public function getClustersList($page = 1, $pageSize = 10)
     {
-        $clusters = $this->clusterBiz->getClustersList($page, $pageSize);
+        $clusters = $this->clusterDbBiz->getClustersList($page, $pageSize);
         return $clusters;
     }
 
     public function getNodeChildren($cluster, $path)
     {
-        $address = $this->clusterBiz->getClusterConfig($cluster);
-        $children = $this->nodeBiz->getChildren($address, $path);
+        $address = $this->clusterDbBiz->getClusterConfig($cluster);
+        $children = $this->clusterZkBiz->getChildren($address, $path);
         sort($children);
         return $children;
     }

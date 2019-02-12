@@ -25,7 +25,7 @@ class ClusterController extends BaseController
 
     public function actionSelect($cluster)
     {
-        $path = Yii::$app->request->get('path');
+        $path = Yii::$app->request->get('path', '/');
 
         $clusterSrv = new ClusterZkService();
         $children = $clusterSrv->getNodeChildren($cluster, $path);
