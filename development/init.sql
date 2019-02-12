@@ -99,10 +99,10 @@ CREATE TABLE IF NOT EXISTS `tb_user_team` (
   KEY `idx_team_user` (`team_id`,`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
-INSERT INTO `cluster` VALUES (1,'local_test','zookeeper:2181',now());
+INSERT INTO `tb_cluster` VALUES (1,'local_test','zookeeper:2181',now());
 
-INSERT INTO `team` VALUES (1,'admin',1,now());
+INSERT INTO `tb_team` VALUES (1,'admin',1,now());
 
-INSERT INTO `user` VALUES (1,'youradmin',now());
+INSERT INTO `tb_user` VALUES (1,'youradmin',now());
 
-INSERT INTO `user_team` VALUES (1,1,1,100,10,now());
+INSERT INTO `tb_user_team` VALUES (1,1,1,100,10,now());

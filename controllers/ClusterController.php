@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\service\ClusterService;
+use app\service\ClusterZkService;
 use Yii;
 
 /**
@@ -17,21 +17,26 @@ class ClusterController extends BaseController
     {
         $page = Yii::$app->request->get('page');
 
-        $clusterSrv = new ClusterService();
-        $clusters = $clusterSrv->getClusterList($page);
+        $clusterSrv = new ClusterZkService();
+        $clusters = $clusterSrv->getClustersList($page);
 
         return $this->renderPartial('list.twig', ['clusters' => $clusters]);
     }
 
-    public function actionSelect($name)
+    public function actionSelect($cluster)
     {
+        $path = Yii::$app->request->get('path');
+
+        $clusterSrv = new ClusterZkService();
+        $children = $clusterSrv->getNodeChildren($cluster, $path);
+
         $attrs = [
-            'children' => ['test1', 'test2', 'test3'],
+            'children' => $children,
             'data' => '',
             'stat' => '',
             'path' => '/path1/path2',
             'pathArr' => ['path1', 'path2'],
-            'cluster' => $name,
+            'cluster' => $cluster,
             'clusters' => '',
             'snapshots' => '',
             'hasPermission' => '',

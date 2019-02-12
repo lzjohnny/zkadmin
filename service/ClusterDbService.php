@@ -2,7 +2,7 @@
 
 namespace app\service;
 
-use app\business\ClusterAdminBiz;
+use app\business\ClusterDbBiz;
 use Yii;
 
 /**
@@ -11,18 +11,18 @@ use Yii;
  * Date: 2019/2/8
  * Time: 10:41
  */
-class ClusterAdminService extends BaseService
+class ClusterDbService extends BaseService
 {
     private $clusterBiz;
 
     public function __construct()
     {
-        $this->clusterBiz = new ClusterAdminBiz();
+        $this->clusterBiz = new ClusterDbBiz();
     }
 
-    public function getClusterList($page = 1, $pageSize = 10)
+    public function getClustersList($page = 1, $pageSize = 10)
     {
-        $clusters = $this->clusterBiz->getClusterList($page, $pageSize);
+        $clusters = $this->clusterBiz->getClustersList($page, $pageSize);
         return $clusters;
     }
 

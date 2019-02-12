@@ -11,11 +11,11 @@ use yii\db\ActiveRecord;
  * Date: 2019/1/31
  * Time: 10:57
  */
-class Cluster extends ActiveRecord
+class ClusterDbModel extends BaseDbModel
 {
     public static function tableName()
     {
-        return parent::tableName();
+        return '{{%cluster}}';
     }
 
     public function createCluster($name, $config)
@@ -28,7 +28,7 @@ class Cluster extends ActiveRecord
 
     public function updateCluster($name, $config)
     {
-        $cluster = Cluster::findOne(['name' => $name]);
+        $cluster = ClusterDbModel::findOne(['name' => $name]);
         $cluster->name = $name;
         $cluster->config = $config;
         return $cluster->save();
@@ -36,14 +36,21 @@ class Cluster extends ActiveRecord
 
     public function deleteCluster($name)
     {
-        $cluster = Cluster::findOne(['name' => $name]);
+        $cluster = ClusterDbModel::findOne(['name' => $name]);
         return $cluster->delete();
     }
 
-    public function getClusterList($page, $pageSize = 10)
+    public function getClustersList($page, $pageSize = 10)
     {
         $offset = ($page - 1) * $pageSize;
-        $clusters = Cluster::find()->offset($offset)->limit($pageSize)->all();
+        $clusters = ClusterDbModel::find()->offset($offset)->limit($pageSize)->all();
         return $clusters;
+    }
+
+    public function getClusterConfig($name)
+    {
+        $cond = ['name' => $name];
+        $cluster = ClusterDbModel::find()->where($cond)->limit(1)->one();
+        return $cluster->config;
     }
 }

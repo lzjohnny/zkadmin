@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\service\ClusterAdminService;
+use app\service\ClusterDbService;
 use Yii;
 
 /**
@@ -17,8 +17,8 @@ class AdminController extends BaseController
     {
         $page = Yii::$app->request->get('page', 1);
 
-        $clusterSrv = new ClusterAdminService();
-        $clusters = $clusterSrv->getClusterList($page);
+        $clusterSrv = new ClusterDbService();
+        $clusters = $clusterSrv->getClustersList($page);
 
         return $this->renderPartial('index.twig', ['clusters' => $clusters]);
     }
@@ -28,7 +28,7 @@ class AdminController extends BaseController
         $name = Yii::$app->request->post('name');
         $config = Yii::$app->request->post('config');
 
-        $clusterSrv = new ClusterAdminService();
+        $clusterSrv = new ClusterDbService();
         $clusterSrv->createCluster($name, $config);
 
         $this->redirect('index');
@@ -39,7 +39,7 @@ class AdminController extends BaseController
         $name = Yii::$app->request->post('name');
         $config = Yii::$app->request->post('config');
 
-        $clusterSrv = new ClusterAdminService();
+        $clusterSrv = new ClusterDbService();
         $clusterSrv->updateCluster($name, $config);
 
         $this->redirect('index');
@@ -49,7 +49,7 @@ class AdminController extends BaseController
     {
         $name = Yii::$app->request->post('name');
 
-        $clusterSrv = new ClusterAdminService();
+        $clusterSrv = new ClusterDbService();
         $clusterSrv->deleteCluster($name);
 
         $this->redirect('index');

@@ -3,7 +3,7 @@
 namespace app\business;
 
 use app\components\ZKAdminException;
-use app\models\Cluster;
+use app\models\ClusterDbModel;
 
 /**
  * Created by PhpStorm.
@@ -11,18 +11,18 @@ use app\models\Cluster;
  * Date: 2019/1/31
  * Time: 11:18
  */
-class ClusterAdminBiz extends BaseBiz
+class ClusterDbBiz extends BaseBiz
 {
     private $cluster;
 
     public function __construct()
     {
-        $this->cluster = new Cluster();
+        $this->cluster = new ClusterDbModel();
     }
 
-    public function getClusterList($page, $pageSize = 20)
+    public function getClustersList($page, $pageSize = 20)
     {
-        $clustersList = $this->cluster->getClusterList($page, $pageSize);
+        $clustersList = $this->cluster->getClustersList($page, $pageSize);
 
         $clustersInfo = [];
         foreach ($clustersList as $cluster) {
@@ -58,5 +58,14 @@ class ClusterAdminBiz extends BaseBiz
             throw ZKAdminException::createIllegalParameterException();
         }
         $this->cluster->deleteCluster($name);
+    }
+
+    public function getClusterConfig($name)
+    {
+        if (empty($name)) {
+            throw ZKAdminException::createIllegalParameterException();
+        }
+        $config = $this->cluster->getClusterConfig($name);
+        return $config;
     }
 }
